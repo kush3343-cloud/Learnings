@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: secret
+      MONGO_INITDB_DATABASE: userdb
+    volumes:
+      - mongo-data:/data/db
+
+  user-api:
+    build: .
+    container_name: user-api
+    ports:
+      - "8080:8080"
+    environment:
+      MONGO_URI: mongodb://root:secret@mongo:27017/userdb?authSource=admin
+    depends_on:
+      - mongo
+
+volumes:
+  mongo-data:
