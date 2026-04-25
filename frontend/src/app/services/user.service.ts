@@ -24,4 +24,12 @@ export class UserService {
   deleteUser(id: string) {
     return this.http.delete(`${this.api}/users/${id}`, { headers: this.headers() });
   }
+
+  updateRole(id: string, role: string) {
+    return this.http.patch<any>(`${this.api}/users/${id}/role`, { role }, { headers: this.headers() });
+  }
+
+  updateProfile(name: string, password: string) {
+    return this.http.put<any>(`${this.api}/users/profile`, { name, password }, { headers: this.headers() });
+  }
 }

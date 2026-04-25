@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
@@ -26,19 +27,19 @@ import { AddUserDialogComponent } from '../../components/add-user-dialog/add-use
           <a class="nav-item active">
             <mat-icon>dashboard</mat-icon><span>Dashboard</span>
           </a>
-          <a class="nav-item">
+          <a class="nav-item active">
             <mat-icon>people</mat-icon><span>Users</span>
           </a>
-          <a class="nav-item">
+          <a class="nav-item" (click)="go('/roles')">
             <mat-icon>shield</mat-icon><span>Roles</span>
           </a>
         </div>
         <div class="sidebar-section">
           <label>System</label>
-          <a class="nav-item">
+          <a class="nav-item" (click)="go('/settings')">
             <mat-icon>settings</mat-icon><span>Settings</span>
           </a>
-          <a class="nav-item">
+          <a class="nav-item" (click)="go('/help')">
             <mat-icon>help_outline</mat-icon><span>Help</span>
           </a>
         </div>
@@ -197,7 +198,8 @@ export class DashboardComponent implements OnInit {
     private authService: AuthService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -245,4 +247,5 @@ export class DashboardComponent implements OnInit {
   }
 
   logout() { this.authService.logout(); }
+  go(path: string) { this.router.navigate([path]); }
 }

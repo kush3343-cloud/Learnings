@@ -6,4 +6,7 @@ export const routes: Routes = [
   { path: 'login', loadComponent: () => import('./pages/login/login.component').then(m => m.LoginComponent) },
   { path: 'register', loadComponent: () => import('./pages/register/register.component').then(m => m.RegisterComponent) },
   { path: 'dashboard', loadComponent: () => import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent), canActivate: [authGuard] },
+  { path: 'roles', loadComponent: () => import('./pages/roles/roles.component').then(m => m.RolesComponent), canActivate: [authGuard] },
+  { path: 'settings', loadComponent: () => import('./pages/settings/settings.component').then(m => m.SettingsComponent), canActivate: [authGuard] },
+  { path: 'help', loadComponent: () => import('./pages/help/help.component').then(m => m.HelpComponent), canActivate: [authGuard] },
 ];
