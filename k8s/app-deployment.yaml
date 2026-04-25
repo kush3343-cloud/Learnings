@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: user-api
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: user-api
@@ -23,6 +23,13 @@ spec:
                 secretKeyRef:
                   name: mongo-secret
                   key: mongo-uri
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:MaxRAMPercentage=60.0 -XX:InitialRAMPercentage=30.0 -XX:+UseSerialGC -XX:MaxMetaspaceSize=80m"
+          resources:
+            requests:
+              memory: "128Mi"
+            limits:
+              memory: "220Mi"
           readinessProbe:
             httpGet:
               path: /actuator/health
@@ -36,7 +43,7 @@ kind: Service
 metadata:
   name: user-api-service
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: user-api
   ports:

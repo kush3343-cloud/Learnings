@@ -17,6 +17,11 @@ spec:
           image: YOUR_DOCKERHUB_USERNAME/user-api-frontend:latest
           ports:
             - containerPort: 80
+          resources:
+            requests:
+              memory: "8Mi"
+            limits:
+              memory: "32Mi"
           readinessProbe:
             httpGet:
               path: /
