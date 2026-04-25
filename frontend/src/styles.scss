@@ -1,0 +1,153 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f0f2f5;
+  min-height: 100vh;
+}
+
+.page-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #3f51b5 0%, #9c27b0 100%);
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  width: 100%;
+  max-width: 420px;
+}
+
+.card h2 {
+  text-align: center;
+  color: #3f51b5;
+  margin-bottom: 8px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.card .subtitle {
+  text-align: center;
+  color: #888;
+  margin-bottom: 28px;
+  font-size: 14px;
+}
+
+.full-width { width: 100%; margin-bottom: 16px; }
+
+.btn-primary {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  margin-top: 8px;
+}
+
+.link-row {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 14px;
+  color: #666;
+
+  a { color: #3f51b5; cursor: pointer; text-decoration: none; font-weight: 600; }
+}
+
+.error-msg {
+  color: #e53935;
+  font-size: 13px;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.toolbar-spacer { flex: 1 1 auto; }
+
+.dashboard-container {
+  max-width: 900px;
+  margin: 32px auto;
+  padding: 0 16px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+
+  h2 { font-size: 24px; color: #333; font-weight: 700; }
+}
+
+.user-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.user-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.14);
+  }
+}
+
+.user-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3f51b5, #9c27b0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.user-name { font-size: 18px; font-weight: 600; color: #222; }
+.user-email { font-size: 13px; color: #888; margin-top: 4px; }
+.user-role {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  background: #e8eaf6;
+  color: #3f51b5;
+  text-transform: uppercase;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  color: #e53935 !important;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 0;
+  color: #aaa;
+
+  mat-icon { font-size: 64px; width: 64px; height: 64px; margin-bottom: 16px; }
+  p { font-size: 18px; }
+}
+
+.dialog-title { font-size: 20px; font-weight: 700; color: #3f51b5; }
