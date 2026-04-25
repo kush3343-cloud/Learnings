@@ -20,12 +20,15 @@ public class UserController {
 
     @GetMapping
     public List<User> getUsers() {
-        return userRepository.findAll();
+        List<User> users = userRepository.findAll();
+        users.forEach(u -> u.setPassword(null));
+        return users;
     }
 
     @PostMapping
     public ResponseEntity<User> addUser(@RequestBody User user) {
         User saved = userRepository.save(user);
+        saved.setPassword(null);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
