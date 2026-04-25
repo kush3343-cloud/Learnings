@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://kushal-api.xyz/api'
+  apiUrl: 'https://kushal-api.xyz/api'
 };
