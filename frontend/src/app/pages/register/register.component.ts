@@ -2,47 +2,74 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, MatInputModule, MatButtonModule,
-    MatFormFieldModule, MatIconModule, MatProgressSpinnerModule],
+  imports: [CommonModule, FormsModule, RouterModule, MatIconModule],
   template: `
-    <div class="page-center">
-      <div class="card">
-        <h2>Create Account</h2>
-        <p class="subtitle">Join us today — it's free!</p>
-        <div *ngIf="error" class="error-msg">{{ error }}</div>
-        <mat-form-field class="full-width" appearance="outline">
-          <mat-label>Full Name</mat-label>
-          <mat-icon matPrefix>person</mat-icon>
-          <input matInput [(ngModel)]="name" placeholder="Kushal Kumar"/>
-        </mat-form-field>
-        <mat-form-field class="full-width" appearance="outline">
-          <mat-label>Email</mat-label>
-          <mat-icon matPrefix>email</mat-icon>
-          <input matInput type="email" [(ngModel)]="email" placeholder="you@example.com"/>
-        </mat-form-field>
-        <mat-form-field class="full-width" appearance="outline">
-          <mat-label>Password</mat-label>
-          <mat-icon matPrefix>lock</mat-icon>
-          <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="password"/>
-          <button mat-icon-button matSuffix (click)="hide = !hide">
-            <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+    <div class="auth-wrapper">
+      <div class="auth-brand">
+        <div class="brand-logo">👥</div>
+        <h1>UserFlow</h1>
+        <p>Join thousands of teams managing their users with UserFlow.</p>
+        <div class="features">
+          <div class="feature"><mat-icon>verified_user</mat-icon><span>Secure JWT Authentication</span></div>
+          <div class="feature"><mat-icon>speed</mat-icon><span>Real-time User Management</span></div>
+          <div class="feature"><mat-icon>cloud_done</mat-icon><span>Deployed on Kubernetes</span></div>
+        </div>
+      </div>
+
+      <div class="auth-form-side">
+        <div class="auth-form-box">
+          <div class="auth-header">
+            <h2>Create your account</h2>
+            <p>Get started for free today</p>
+          </div>
+
+          <div class="error-banner" *ngIf="error">
+            <mat-icon style="font-size:16px;width:16px;height:16px">error_outline</mat-icon>
+            {{ error }}
+          </div>
+
+          <div class="form-group">
+            <label>Full name</label>
+            <div class="input-wrap">
+              <mat-icon>person_outline</mat-icon>
+              <input type="text" [(ngModel)]="name" placeholder="John Smith"/>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Email address</label>
+            <div class="input-wrap">
+              <mat-icon>mail_outline</mat-icon>
+              <input type="email" [(ngModel)]="email" placeholder="you@company.com"/>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Password</label>
+            <div class="input-wrap">
+              <mat-icon>lock_outline</mat-icon>
+              <input [type]="hide ? 'password' : 'text'" [(ngModel)]="password" placeholder="Min. 8 characters"/>
+              <button class="eye-btn" (click)="hide = !hide">
+                <mat-icon style="font-size:18px;width:18px;height:18px">{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <button class="btn-auth" (click)="register()" [disabled]="loading">
+            <div class="spinner" *ngIf="loading"></div>
+            {{ loading ? 'Creating account...' : 'Create account' }}
           </button>
-        </mat-form-field>
-        <button mat-raised-button color="primary" class="btn-primary" (click)="register()" [disabled]="loading">
-          <mat-spinner *ngIf="loading" diameter="20" style="display:inline-block;margin-right:8px"></mat-spinner>
-          {{ loading ? 'Creating account...' : 'Create Account' }}
-        </button>
-        <div class="link-row">Already have an account? <a routerLink="/login">Sign In</a></div>
+
+          <div class="auth-footer">
+            Already have an account? <a routerLink="/login">Sign in</a>
+          </div>
+        </div>
       </div>
     </div>
   `
@@ -56,7 +83,7 @@ export class RegisterComponent {
     this.error = ''; this.loading = true;
     this.auth.register(this.name, this.email, this.password).subscribe({
       next: () => this.router.navigate(['/dashboard']),
-      error: (e) => { this.error = e.error || 'Registration failed'; this.loading = false; }
+      error: (e) => { this.error = e.error || 'Registration failed. Please try again.'; this.loading = false; }
     });
   }
 }
