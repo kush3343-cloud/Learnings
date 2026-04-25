@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -66,7 +66,8 @@ export class DashboardComponent implements OnInit {
     private userService: UserService,
     private authService: AuthService,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -77,8 +78,8 @@ export class DashboardComponent implements OnInit {
   loadUsers() {
     this.loading = true;
     this.userService.getUsers().subscribe({
-      next: (data) => { this.users = data; this.loading = false; },
-      error: () => { this.loading = false; }
+      next: (data) => { this.users = Array.isArray(data) ? data : []; this.loading = false; this.cdr.detectChanges(); },
+      error: (err) => { console.error('Failed to load users', err); this.loading = false; this.cdr.detectChanges(); }
     });
   }
 
